@@ -1,1 +1,31 @@
 Explain the code execution based on the order of the messages logged in src/quiz/promise-2darray.txt.
+
+Explanation of Changes:
+1. I added a return; after calling reject() to ensure that the function doesn't proceed with the setTimeout() when the Promise is rejected. Without this, the code could attempt to calculate the sum of an empty array after it already rejected the Promise.
+2. I added .then() and .catch() to handle the resolved value or rejection in the example usage. This allows the results or error messages to be logged asynchronously after the Promise resolves or rejects.
+
+Code execution
+1. When sum2DArray() is called, it immediately logs "Sum called ... " and then checks if the array is empty.
+2. If the array is empty, the Promise is immediately rejected with the message "Cannot sum an empty array".
+3. In this case, for sumPromise2, the reject() triggers the .catch() to log the error message.
+4. If the array is not empty, the code sets a setTimeout() to execute the sum calculation asynchronously.
+5. Before the setTimeout() function runs, the code logs "Returning from sum" and returns the Promise.
+6. At this point, the Promise is still pending, so the log output shows the Promise object itself.
+7. Inside the setTimeout(), the code iterates over the 2D array and logs each addition to the sum (e.g., "Adding 1 to sum"). Once the sum is computed, the Promise is resolved, and the .then() handler logs the result.
+
+Order of the output
+
+Sum called ... 
+returning from sum
+Sum called ...
+Error from sumPromise2: Cannot sum an empty array
+Adding 1 to sum
+Adding 2 to sum
+Adding 3 to sum
+Adding 4 to sum
+Adding 5 to sum
+Adding 6 to sum
+Adding 7 to sum
+Adding 8 to sum
+Adding 9 to sum
+Result from sumPromise1: 45
